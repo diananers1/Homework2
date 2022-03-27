@@ -8,6 +8,8 @@ chai.use(chaiAsPromised);
 chai.should();
 const axios = require('axios');
 let test_data = {"post code": "28173", "country": "United States", "country abbreviation": "US", "places": [{"place name": "Waxhaw", "longitude": "-80.7278", "state": "North Carolina", "state abbreviation": "NC", "latitude": "34.9251"}]};
+let test_data2 = {"post code": "2817311", "country": "United States", "country abbreviation": "US", "places": [{"place name": "Waxhaw", "longitude": "-80.7278", "state": "North Carolina", "state abbreviation": "NC", "latitude": "34.9251"}]};
+const stub = sinon.stub(axios, 'get');
 
 
 describe("Testing cities.repository file.", function () {
@@ -16,18 +18,28 @@ describe("Testing cities.repository file.", function () {
     // this.timeout(0);
 
     describe("Testing the 'getDataCityByZipCode' function.", function () {
-        it("returns city data by zip code ", async function () {
-            const stub = sinon.stub(axios, 'get');
-            
-            
-            stub.withArgs('https://api.zippopotam.us/us/28173').returns(test_data);
+      it("returns city data by zip code ", async function () {
+        
+        
+        stub.withArgs('https://api.zippopotam.us/us/28173').returns(test_data);
 
-            let res = await axios.get('https://api.zippopotam.us/us/28173');
+        let res = await axios.get('https://api.zippopotam.us/us/28173');
 
-            expect(res).to.be.equal(test_data);
+        expect(res).to.be.equal(test_data);
 
-            
-        })
+        
+      }),
+      it("returns city data by zip codesa ", async function () {
+        
+        
+        stub.withArgs('https://api.zippopotam.us/us/28173').returns(test_data);
+
+        let res = await axios.get('https://api.zippopotam.us/us/28173');
+
+        expect(res).to.be.equal(test_data2);
+
+        
+      })
   
     
     })
