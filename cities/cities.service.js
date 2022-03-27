@@ -5,8 +5,8 @@ const citiesRepository = require('./cities.repository.js');
 
 module.exports = {
 
-    async getDataCityByZipCode(zip) {
-        let city = await citiesRepository.getDataCityByZipCode(zip);
-        return city['places'][0]['place name'] + ', ' + city['places'][0]['state abbreviation'] + ', ' + city['country'];
+    async getCityByZipCode(zip) {
+        // let city = await citiesRepository.getDataCityByZipCode(zip);
+        return 'aa';//city['places'][0]['place name'] + ', ' + city['places'][0]['state abbreviation'] + ', ' + city['country'];
     }
 }
