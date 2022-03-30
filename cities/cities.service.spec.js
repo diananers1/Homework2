@@ -1,38 +1,47 @@
-// const service = require('./cities.service');
-// const chai = require('chai');
-// const sinon = require('sinon');
-// const chaiAsPromised = require('chai-as-promised');
-// chai.use(chaiAsPromised);
-// chai.should();
-// // var rewire = require("rewire");
+const chai = require('chai');
+const expect = chai.expect;
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+const rewire = require("rewire");
+const faker = require('@faker-js/faker').faker;
+const service= require('./cities.service');
 
-// // var repository = rewire("./cities.repository");
-// // let test_data = {
-// //     'post code': '28173',
-// //     country: 'United States',
-// //     'country abbreviation': 'US',
-// //     places: [
-// //       {
-// //         'place name': 'Waxhaw',
-// //         longitude: '-80.7278',
-// //         state: 'North Carolina',
-// //         'state abbreviation': 'NC',
-// //         latitude: '34.9251'
-// //       }
-// //     ]
-// // };
-// describe("Testing cities.service file.", function () {
-//     // If timeout is set to 0, it means it will wait for a test result
-//     // for as long as it takes.
-//     // this.timeout(0);
 
-//     describe("Testing the 'getCityByZipCode' function.", function () {
-//         it("returns city data by zip code ", function () {
-//             // repository.__set__("getDataCityByZipCode", test_data);
-//             let stub = sinon.stub(service, 'getCityByZipCode');
-//             stub.withArgs(1).returns('Waxhaw, NC, Unitedghgghghghgh States');
-//             // service.getCityByZipCode(1).should.eventually.be.equal('Waxhaw,kjhhhhhhhjjhbjbhjhbh NC, United States');
-//         })
-//     })
+describe("Testing cities.service file.", function () {
 
-// })
+    const citiesService = rewire("./cities.service");
+
+    describe("Testing the 'getCityByZipCode' function.", function () {
+        it("returns city data by zip code ", async function () {
+            faker.seed(555);
+            let myCity = faker.address.cityName() + "," + faker.address.stateAbbr() + ", " + faker.address.country()
+            citiesService.__set__({
+                citiesRepository: {
+                    getCityDataByZipCode: () => {
+                        return myCity;    
+                    } 
+                }
+            });
+
+            await expect(citiesService.getCityByZipCode("28173")).to.eventually.be.equal(myCity);
+        
+        })
+
+        it("should return NotFoundError", async function () {
+            citiesService.__set__({
+                citiesRepository: {
+                    getCityDataByZipCode: () => {
+                        return ''; 
+                    } 
+                }
+            });
+
+            await expect(citiesService.getCityByZipCode("")).to.eventually.be.rejectedWith('City not found!');
+        
+        })
+
+    })
+
+})
+
+

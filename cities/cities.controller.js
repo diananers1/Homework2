@@ -7,7 +7,7 @@ const route = express.Router();
 
 
 route.get('/:zipCode/', async(req,res) => {
-    let result = await citiesService.getDataCityByZipCode(req.params['zipCode']);
+    let result = await citiesService.getCityByZipCode(req.params['zipCode']);
     res.send(result);
 });
 

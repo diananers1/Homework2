@@ -4,22 +4,23 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:dev": "node app.js",
+    "start:dev": "nodeman app.js",
     "test": "mocha cities/**/*.spec.js"
   },
   "author": "Diana Nersesyan",
   "license": "ISC",
   "dependencies": {
-    "@sinonjs/referee": "github:sinonjs/referee",
     "axios": "^0.26.1",
-    "chai-as-promised": "^7.1.1",
     "express": "^4.17.3",
-    "nodemon": "^2.0.15",
-    "rewire": "^6.0.0"
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.1.1",
+    "@sinonjs/referee": "github:sinonjs/referee",
     "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^9.2.2",
+    "rewire": "^6.0.0",
     "sinon": "^13.0.1"
   }
 }
