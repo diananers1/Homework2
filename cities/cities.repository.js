@@ -6,13 +6,10 @@ module.exports = {
         return axios
         .get('https://api.zippopotam.us/us/' + zipCode)
         .then(res => {
-            if (!res) {
-                throw new NotFoundError('City not found!');
-            }
             return res['data']['places'][0]['place name']  +", "+ res['data']['places'][0]['state abbreviation']+ ", "+res['data']['country'];
         })
         .catch(error => {
-          throw new Error('Error'); 
+           throw new NotFoundError('No cities found!'); 
         })
     }
 }
